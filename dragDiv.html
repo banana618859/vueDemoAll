@@ -1,0 +1,132 @@
+<!-- 思路以及代码以下—— 陈  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>drag div</title>
+    <style type="text/css">
+
+    /*方式一： 内外框结合*/
+    /* .inner{ width:100%;height:100%;border:1px solid #000;}
+        .outer:hover{cursor: e-resize;}
+        .inner:hover{cursor: default;}
+        .outer{width:100px;height:200px;border:2px solid red;}
+    */
+
+    /*方式2： 绝对定位*/
+    .BigRightBorder{
+        position: absolute;
+        cursor: e-resize;
+        right: -2px;
+        top:-2px;
+        width:5px;
+        height: 100px;
+        background: #69f;
+    }
+    .BigBottomBorder{
+        position: absolute;
+        cursor: n-resize;
+        left: -2px;
+        bottom:-2px;
+        width:4px;
+        height: 4px;
+        background: #69f;
+    }
+    .BigBrBorder{
+        position: absolute;
+        cursor: nw-resize;
+        right: -3px;
+        bottom:-3px;
+        width:6px;
+        height: 6px;
+        background: #000;
+    }
+    .outer{
+        position: relative;
+        width: 100px;
+        height:200px;
+        border:2px solid red;
+    }
+    </style>
+
+</head>
+
+<body>
+
+<!--方式一：利用双层div，里面div覆盖外层div exmaple1-->
+<!-- <div id="moveBarBox" class="outer"  onmousedown="startDrag()">
+
+    <div class="inner" >
+        利用双层div，里面div覆盖外层div exmaple1
+    </div>
+
+</div> -->
+
+<!--方式二：利用绝对定位实现 exmaple2(推荐：更灵活)-->
+<div id="moveBarBox" class="outer"  onmousedown="startDrag()">
+    绝对定位 exmaple2 
+    <div class="BigRightBorder"></div>
+    <div class="BigBottomBorder"></div>
+    <div class="BigBrBorder"></div>
+</div>
+
+<script type="text/javascript">
+
+    var box = document.getElementById('moveBarBox');
+    var borderR = document.getElementsByClassName('BigRightBorder')[0];
+    var borderB = document.getElementsByClassName('BigBottomBorder')[0];
+    var borderRB = document.getElementsByClassName('BigBrBorder')[0];
+
+    borderR.style.height = box.offsetHeight-2 + 'px';
+    borderB.style.width = box.offsetWidth-2 + 'px';
+
+    var dragable = false;//默认不可拖拽
+    var theTargt; // 记录点击的目标
+
+    var startDrag = function(event){
+        var e=event?event:window.event;
+        console.log('鼠标按下mousedown时触发事件1---',e,e.target,e.target.getAttribute("class"))
+        theTargt = e.target.getAttribute("class");
+        dragable = true;
+
+    };
+
+    var endDrop = function(){
+       console.log('触发事件4-endDrop-停止---')
+        if(dragable){
+            dragable = false;            
+        };
+    };
+
+    document.onmouseup=function(){
+        console.log('触发事件3-onmouseup---')
+        endDrop();
+    };
+
+    document.onmousemove=function(event){
+
+        console.log('触发事件2-onmousemove---')
+        if(dragable){
+            var e=event?event:window.event;
+            if(dragable){
+                if(theTargt == 'BigRightBorder'){
+                    borderB.style.width = e.pageX + 'px';
+                    box.style.width = e.pageX + 'px'; 
+                }
+                else if(theTargt == 'BigBottomBorder'){
+                    box.style.height = e.pageY + 'px'; 
+                    borderR.style.height = e.pageY + 'px';
+                }else{
+                    borderB.style.width = e.pageX + 'px';
+                    box.style.width = e.pageX + 'px'; 
+
+                    box.style.height = e.pageY + 'px'; 
+                    borderR.style.height = e.pageY + 'px';
+                }
+            };
+        };
+
+    };
+
+</script>
+

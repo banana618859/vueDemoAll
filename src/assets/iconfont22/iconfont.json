@@ -1,0 +1,240 @@
+{
+  "id": "1518905",
+  "name": "zealot",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "32312",
+      "name": "refresh",
+      "font_class": "refresh",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    },
+    {
+      "icon_id": "432461",
+      "name": "file",
+      "font_class": "fill222",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "521045",
+      "name": "JSON格式化",
+      "font_class": "jsongeshihua",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "586717",
+      "name": "add-folder",
+      "font_class": "addfolder",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "963311",
+      "name": "add  file",
+      "font_class": "tianjiamulu",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "981323",
+      "name": "json file",
+      "font_class": "jsonfile",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "1029145",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e768",
+      "unicode_decimal": 59240
+    },
+    {
+      "icon_id": "1160159",
+      "name": "js",
+      "font_class": "js",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "1166136",
+      "name": "文件夹",
+      "font_class": "wenjianjia1",
+      "unicode": "e790",
+      "unicode_decimal": 59280
+    },
+    {
+      "icon_id": "1403048",
+      "name": "文件夹",
+      "font_class": "folder-paper-document-important-share-office-ebadc",
+      "unicode": "e77b",
+      "unicode_decimal": 59259
+    },
+    {
+      "icon_id": "1414188",
+      "name": "文件夹",
+      "font_class": "icon_folder",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "1441149",
+      "name": "refresh",
+      "font_class": "refresh1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "1444787",
+      "name": "json",
+      "font_class": "json",
+      "unicode": "e7bd",
+      "unicode_decimal": 59325
+    },
+    {
+      "icon_id": "1491961",
+      "name": "addfile",
+      "font_class": "addfile",
+      "unicode": "e888",
+      "unicode_decimal": 59528
+    },
+    {
+      "icon_id": "1724246",
+      "name": "文件夹",
+      "font_class": "wenjianjia2",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "1766512",
+      "name": "符号-JSX",
+      "font_class": "JSX",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "1790031",
+      "name": "CSV",
+      "font_class": "CSV",
+      "unicode": "e6e0",
+      "unicode_decimal": 59104
+    },
+    {
+      "icon_id": "3876574",
+      "name": "json",
+      "font_class": "json1",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "4472532",
+      "name": "file",
+      "font_class": "file",
+      "unicode": "e72f",
+      "unicode_decimal": 59183
+    },
+    {
+      "icon_id": "5961331",
+      "name": "js",
+      "font_class": "js1",
+      "unicode": "ec68",
+      "unicode_decimal": 60520
+    },
+    {
+      "icon_id": "6246308",
+      "name": "JS",
+      "font_class": "JS",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "6803517",
+      "name": "Add-Folder",
+      "font_class": "Add-Folder",
+      "unicode": "e7d9",
+      "unicode_decimal": 59353
+    },
+    {
+      "icon_id": "6807373",
+      "name": "Add-Folder",
+      "font_class": "Add-Folder1",
+      "unicode": "ec2e",
+      "unicode_decimal": 60462
+    },
+    {
+      "icon_id": "6900953",
+      "name": "add-file",
+      "font_class": "add-file",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "7205795",
+      "name": "Add file",
+      "font_class": "Addfile",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "7213642",
+      "name": "Add folder",
+      "font_class": "Addfolder",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "7213744",
+      "name": "Add card",
+      "font_class": "Addcard",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "7459722",
+      "name": "文件夹",
+      "font_class": "weibiaoti-_huabanfuben",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "7684624",
+      "name": "csv",
+      "font_class": "csv",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "8106275",
+      "name": "refresh",
+      "font_class": "refresh2",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "8827110",
+      "name": "add-file",
+      "font_class": "add-file1",
+      "unicode": "e936",
+      "unicode_decimal": 59702
+    },
+    {
+      "icon_id": "10135193",
+      "name": "csv",
+      "font_class": "csv1",
+      "unicode": "e8aa",
+      "unicode_decimal": 59562
+    },
+    {
+      "icon_id": "11650700",
+      "name": "file-csv",
+      "font_class": "file-csv",
+      "unicode": "e7d5",
+      "unicode_decimal": 59349
+    }
+  ]
+}
