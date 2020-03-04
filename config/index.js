@@ -2,8 +2,8 @@
  * @Descripttion: 
  * @Author: yizheng.yuan
  * @Date: 2019-09-09 09:38:57
- * @LastEditors  : yizheng.yuan
- * @LastEditTime : 2019-12-18 13:01:51
+ * @LastEditors: yizheng.yuan
+ * @LastEditTime: 2020-03-04 09:01:03
  */
 'use strict'
 // Template version: 1.3.1
@@ -26,9 +26,9 @@ module.exports = {
     //         }
     //     }
     // },
-    // Various Dev Server settings
-    host: 'www.xcaiputest.cn', // can be overwritten by process.env.HOST
-    port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    // Various Dev Server settings www.xcaiputest.cn
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

@@ -4,30 +4,33 @@
     <div class="proTree">
       <!--目录树组件-->
       <!-- <ProjectTree></ProjectTree> -->
-      <p>{{$t('login.user')}}</p>
 
-      <el-select v-model="language" @change="changeLanguage" placeholder="请选择语言">
-        <el-option label="英语" value="en"></el-option>
-        <el-option label="中文" value="zh"></el-option>
-        <el-option label="韩语" value="ko"></el-option>
-      </el-select>
+      
+        <div>
+          <p>{{$t('login.user')}}</p>
+          <el-select v-model="language" @change="changeLanguage" placeholder="请选择语言">
+            <el-option label="英语" value="en"></el-option>
+            <el-option label="中文" value="zh"></el-option>
+            <el-option label="韩语" value="ko"></el-option>
+          </el-select>
 
-      <el-date-picker
-        v-model="value1"
-        type="date"
-        placeholder="选择日期">
-      </el-date-picker>
+          <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="选择日期">
+          </el-date-picker>
+
+        <el-pagination
+          style="position: absolute; top: 300px; z-index: 5;"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage1"
+          :page-size="100"
+          layout="total, prev, pager, next"
+          :total="1000">
+        </el-pagination>
+      </div>
     </div>
-
-    <el-pagination
-      style="position: absolute; top: 300px; z-index: 5;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page.sync="currentPage1"
-      :page-size="100"
-      layout="total, prev, pager, next"
-      :total="1000">
-    </el-pagination>
 
    
     
@@ -43,7 +46,7 @@
   import ProjectTree from './ProjectTree';
   import axios from 'axios'
   import '../assets/css/global.css';
-  // 声明全局变量
+  // 声明全局变量1
   let id = 1000;
   /*
   var A = {

@@ -3,7 +3,7 @@
  * @Author: yizheng.yuan
  * @Date: 2019-12-11 17:31:11
  * @LastEditors: yizheng.yuan
- * @LastEditTime: 2020-02-18 11:29:21
+ * @LastEditTime: 2020-03-04 14:04:27
  -->
 <template>
     <div @contextmenu="showMenu">
@@ -28,7 +28,17 @@
             node-key="id" 
             default-expand-all
             @node-contextmenu="rightClickFun"
-            :expand-on-click-node="false">
+            :expand-on-click-node="false"
+            
+            @node-drag-start="handleDragStart"
+            @node-drag-enter="handleDragEnter"
+            @node-drag-leave="handleDragLeave"
+            @node-drag-over="handleDragOver"
+            @node-drag-end="handleDragEnd"
+            @node-drop="handleDrop"
+            draggable
+            :allow-drop="allowDrop"
+            :allow-drag="allowDrag">
             <span class="custom-tree-node" slot-scope="{ node, data }">
                 <span v-if="(data.type=='TestPlan') || (data.type=='TestGroup')" style="margin-right:5px;">
                     <label>
@@ -37,19 +47,10 @@
                             v-show="data.showChecked" 
                             type="checkbox" v-model="data.checked">
                         <i class="iconfont icon-wenjian" ></i>
-                        {{ node.label }}
+                        {{ data.label }}
                     </label>
                 </span>
-                <span v-else-if="(data.type=='Diagrams')" style="margin-right:5px;">
-                    <label>
-                        <input 
-                            class="checkboxShow"
-                            v-show="data.showChecked" 
-                            type="checkbox" v-model="data.checked">
-                        <i class="iconfont icon-ic_temp" ></i>
-                        {{ node.label }}
-                    </label>
-                </span>
+                
                 <span v-else-if="(data.type=='shortcuts') || (data.type=='shortcut')" style="margin-right:5px;">
                     <label>
                         <input 
@@ -57,7 +58,7 @@
                             v-show="data.showChecked" 
                             type="checkbox" v-model="data.checked">
                         <i class="iconfont icon-shoudong" ></i>
-                        {{ node.label }}
+                        {{ data.label }}
                     </label>
                 </span>
                 <span v-else-if="data.class && (data.type=='csvfile')" style="margin-right:5px;float:left;">
@@ -67,7 +68,7 @@
                             v-show="data.showChecked" 
                             type="checkbox" v-model="data.checked">
                         <i class="iconfont icon-shoudong" ></i>
-                        {{ node.label }}
+                        {{ data.label }}
                     </label>
                 </span>
                 <span v-else-if="data.type=='csvfile'" style="margin-right:5px;float:left;">
@@ -77,32 +78,10 @@
                             v-show="data.showChecked" 
                             type="checkbox" v-model="data.checked">
                         <i class="iconfont icon-shoudong" ></i>
-                        {{ node.label }}
+                        {{ data.label }}
                     </label>
                 </span>
-
-                <span v-else-if="data.type=='Diagram'" style="margin-right:5px;">
-                    <span v-if="!data.editable">
-                        <label>
-                            <input 
-                                class="checkboxShow"
-                                v-show="data.showChecked" 
-                                type="checkbox" v-model="data.checked">
-                            <i class="iconfont icon-ic_temp" ></i>
-                            {{ node.label }}
-                        </label>
-                    </span>
-                    <span v-else>
-                        <label>
-                            <input 
-                                class="checkboxShow"
-                                v-show="data.showChecked" 
-                                type="checkbox" v-model="data.checked">
-                            <i class="iconfont icon-ic_temp" ></i>
-                            <input v-model="data.label" @blur="inputBlur(data)" class="renameInput" />
-                        </label>
-                    </span>
-                </span>
+                
                 <span v-else-if="data.type=='shortcutFile'" style="margin-right:5px;">
                     <span v-if="!data.editable">
                         <label>
@@ -111,7 +90,7 @@
                                 v-show="data.showChecked" 
                                 type="checkbox" v-model="data.checked">
                             <i class="iconfont icon-wenjianfile63" ></i>
-                            {{ node.label }}
+                            {{ data.label }}
                         </label>
                     </span>
                     <span v-else>
@@ -180,7 +159,8 @@
                 },
                 treeData: [
                     {
-                        id: 1,
+                        fatherPath: 'workspace',
+                        path: 'workspace/TestPlan',
                         label: 'TestPlan',
                         type: 'TestPlan',
                         checked: true,
@@ -189,62 +169,65 @@
                         children: [{
                             checked: true,
                             showChecked: true,
-                            id: 4,
+                            fatherPath: 'workspace/TestPlan',
+                            path: 'workspace/TestPlan/TestGroup1',
                             label: 'TestGroup1',
                             type: 'TestGroup',
                             children: [{
                                 checked: '',
                                 showChecked: true,
-                                class: 'floatL',
-                                id: 9,
-                                label: 'Test1--l',
+                                fatherPath: 'workspace/TestPlan/TestGroup1',
+                                path: 'workspace/TestPlan/TestGroup1/Test1',
+                                label: 'Test1',
                                 type: 'csvfile',
                                 editable: false,
-                                children: [
+                                },
                                 {
-                                        checked: false,
-                                        showChecked: true,
-                                        id: 1009,
-                                        label: 'Test1009',
-                                        type: 'csvfile',
-                                        editable: false,
-                                    },
-                                    {
-                                        checked: false,
-                                        showChecked: true,
-                                        id: 1010,
-                                        label: 'Test1010',
-                                        type: 'csvfile',
-                                        editable: false,
-                                    }
-                                ]
-                            }, {
                                 checked: false,
                                 showChecked: true,
-                                class: 'floatL',
-                                id: 10,
-                                label: 'Test2--l',
+                                fatherPath: 'workspace/TestPlan/TestGroup1',
+                                path: 'workspace/TestPlan/TestGroup1/Test2',
+                                label: 'Test2',
+                                type: 'csvfile',
+                                editable: false
+                            },{
+                                checked: false,
+                                showChecked: true,
+                                fatherPath: 'workspace/TestPlan/TestGroup1',
+                                path: 'workspace/TestPlan/TestGroup1/Test2',
+                                label: 'Test3',
                                 type: 'csvfile',
                                 editable: false
                             }]
                         }, {
                             checked: false,
                             showChecked: true,
-                            id: 44,
+                            fatherPath: 'workspace/TestPlan',
+                            path: 'workspace/TestPlan/TestGroup2',
                             label: 'TestGroup2',
                             type: 'TestGroup',
                             children: [{
                                 checked: false,
                                 showChecked: true,
-                                id: 9,
+                                fatherPath: 'workspace/TestPlan/TestGroup2',
+                                path: 'workspace/TestPlan/TestGroup2/Test1',
                                 label: 'Test1',
                                 type: 'csvfile',
                                 editable: false
                             }, {
                                 checked: false,
                                 showChecked: true,
-                                id: 10,
+                                fatherPath: 'workspace/TestPlan/TestGroup2',
+                                path: 'workspace/TestPlan/TestGroup2/Test2',
                                 label: 'Test2',
+                                type: 'csvfile',
+                                editable: false
+                            }, {
+                                checked: false,
+                                showChecked: true,
+                                fatherPath: 'workspace/TestPlan/TestGroup2',
+                                path: 'workspace/TestPlan/TestGroup2/Test2',
+                                label: 'Test3',
                                 type: 'csvfile',
                                 editable: false
                             }]
@@ -252,61 +235,32 @@
                         ]
                     }, {
                         checked: false,
-                        showChecked: false,
-                        id: 2,
-                        label: 'Diagrams',
-                        type: 'Diagrams',
-                        customCheckbox: false,
-                        children: [{
-                            checked: false,
-                            showChecked: false,
-                            id: 5,
-                            label: 'Diagrams',
-                            type: 'Diagram',
-                            customCheckbox: false,
-                            children: [{
-                                checked: false,
-                                showChecked: false,
-                                id: 9,
-                                label: 'Power Supply',
-                                type: 'Diagram',
-                                customCheckbox: false,
-                                editable: false
-                            }, {
-                                checked: false,
-                                showChecked: false,
-                                id: 10,
-                                label: 'DMM',
-                                type: 'Diagram',
-                                customCheckbox: false,
-                                editable: false
-                            }]
-
-                        }]
-                    }, {
-                        checked: false,
                         showChecked: true,
-                        id: 3,
+                        fatherPath: 'workspace',
+                        path: 'workspace/Shortcuts',
                         label: 'Shortcuts',
                         type: 'shortcuts',
                         customCheckbox: false,
                         children: [{
                             checked: false,
                             showChecked: true,
-                            id: 47,
+                            fatherPath: 'workspace/Shortcuts',
+                            path: 'workspace/Shortcuts/Group1',
                             label: 'Group1',
                             type: 'shortcut',
                             children: [{
                                 checked: false,
                                 showChecked: true,
-                                id: 9,
+                                fatherPath: 'workspace/Shortcuts/Group1',
+                                path: 'workspace/Shortcuts/Group1/Enter Diags',
                                 label: 'Enter Diags',
                                 type: 'shortcutFile',
                                 editable: false
                             }, {
                                 checked: false,
                                 showChecked: true,
-                                id: 10,
+                                fatherPath: 'workspace/Shortcuts/Group1',
+                                path: 'workspace/Shortcuts/Group1/Battery Boot',
                                 label: 'Battery Boot',
                                 type: 'shortcutFile',
                                 editable: false
@@ -314,20 +268,23 @@
                         }, {
                             checked: false,
                             showChecked: true,
-                            id: 7,
+                            fatherPath: 'workspace/Shortcuts',
+                            path: 'workspace/Shortcuts/Group2',
                             label: 'Group2',
                             type: 'shortcut',
                             children: [{
                                 checked: false,
                                 showChecked: true,
-                                id: 9,
+                                fatherPath: 'workspace/Shortcuts/Group2',
+                                path: 'workspace/Shortcuts/Group2/DMM Battery',
                                 label: 'DMM Battery',
                                 type: 'shortcutFile',
                                 editable: false
                             }, {
                                 checked: false,
                                 showChecked: true,
-                                id: 10,
+                                fatherPath: 'workspace/Shortcuts/Group2',
+                                path: 'workspace/Shortcuts/Group2/Read All IO',
                                 label: 'Read All IO',
                                 type: 'shortcutFile',
                                 editable: false
@@ -338,6 +295,80 @@
             }
         },
         methods: {
+            handleDragStart(node, ev) {
+                console.log('drag start', node);
+                if(node.data.type.includes('file')){
+                    console.log('file文件');
+                    return true;
+                }else{
+                    console.log('不是文件');
+                    return false;
+                }
+            },
+            handleDragEnter(draggingNode, dropNode, ev) {
+                console.log('tree drag enter: ', dropNode.label);
+            },
+            handleDragLeave(draggingNode, dropNode, ev) {
+                console.log('tree drag leave: ', dropNode.label);
+            },
+            handleDragOver(draggingNode, dropNode, ev) {
+                console.log('tree drag over: ',draggingNode, dropNode,ev);
+                // if(dropNode.data.type.includes('file')){
+                //     console.log('不允许 over')
+                //    return false;
+                // }
+            },
+            handleDragEnd(draggingNode, dropNode, dropType, ev) {
+                
+                console.log('tree drag end结束: ', dropNode,dropNode.label, dropType);
+                if(dropType.includes('inner')){
+                    console.log('不允许inner')
+                   return false;
+                }
+            },
+            handleDrop(draggingNode, dropNode, dropType, ev) {
+                console.log('tree drop-最终放下: ', dropNode.label, dropType);
+            },
+            allowDrop(draggingNode, dropNode, type) {
+                console.log('allowDrop----',draggingNode, dropNode, type)
+                // if (dropNode.data.label === '二级 3-1') {
+                // return type !== 'inner';
+                // } else {
+                // return true;
+                // }
+
+                console.log('父级是否相同',draggingNode.data.fatherPath==dropNode.data.fatherPath)
+                if(type=='inner'){
+                    console.log('不允许--inner',type);
+                    return false;
+                }else if(draggingNode.data.fatherPath != dropNode.data.fatherPath){
+                    console.log('父级目录不同，禁止拖放');
+                    return false;
+                }
+                if (dropNode.data.type.includes('file')) {
+                    console.log('file--放')
+                    return true;
+                }
+                else if (dropNode.data.type.includes('TestGroup')) {
+                    console.log('TestGroup允许--放')
+                    return true;
+                }
+            },
+            allowDrag(draggingNode) {
+                console.log('draggingNode',draggingNode)
+                // return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
+                if (draggingNode.data.type.includes('file')) {
+                    console.log('file允许拖')
+                    return true;
+                }
+                else if (draggingNode.data.type.includes('TestGroup')) {
+                    console.log('TestGroup允许拖')
+                    return true;
+                } else {
+                    console.log('--不允许拖')
+                    return false;
+                }
+            },
             rightClickFun(event, data, node, nodeVueComponent) {
                 console.log('--rightClick:', event, data, node, nodeVueComponent);
                 this.currentNode = data;
